@@ -154,7 +154,7 @@ TARGET_CPU_MEMCPY_OPT_DISABLE := true
 USE_MINIKIN := true
 
 # Selinux
-BOARD_SEPOLICY_DIRS += device/mediatek/mt6582/sepolicy
+BOARD_SEPOLICY_DIRS += device/Huawei/h30_t10/sepolicy
 
 # Sepolicy hack for old kernel, mt6582 version is 26.
 POLICYVERS := 26
