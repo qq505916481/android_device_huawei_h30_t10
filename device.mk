@@ -125,6 +125,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
      $(LOCAL_PATH)/configs/android.hardware.camera.xml:system/etc/permissions/android.hardware.camera.xml
 
+# put SU back in userdebug mode
+ifneq ($(TARGET_BUILD_VARIANT),userdebug)
+	WITH_SU := true
+endif
+
 # Keylayout
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/mtk-kpd.kl:system/usr/keylayout/mtk-kpd.kl
