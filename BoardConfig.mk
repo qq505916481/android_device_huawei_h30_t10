@@ -1,28 +1,13 @@
-#
-# Copyright (C) 2016 The CyanogenMod Project
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#      http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
-
 # inherit from the proprietary version
 -include vendor/Huawei/h30_t10/BoardConfigVendor.mk
 
 LOCAL_PATH := device/Huawei/h30_t10
 
 # GPS
-TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
+TARGET_SPECIFIC_HEADER_PATH := device/Huawei/h30_t10/include
 
-
+# Link against libxlog
+TARGET_LDPRELOAD := libxlog.so
 
 # Platform
 TARGET_BOARD_PLATFORM := mt6582
@@ -34,24 +19,21 @@ TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_SMP := true
+TARGET_CPU_VARIANT := cortex-a7
+
 ARCH_ARM_HAVE_VFP := true
 ARCH_ARM_HAVE_NEON := true
 TARGET_ARCH_VARIANT_CPU := cortex-a7
-TARGET_CPU_VARIANT:= cortex-a7
-TARGET_CPU_MEMCPY_OPT_DISABLE := true
-
-# Enable dex-preoptimization
-WITH_DEXPREOPT := false
-DONT_DEXPREOPT_PREBUILTS := true
-
-# Link against libxlog
-TARGET_LDPRELOAD := libxlog.so
 
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := mt6582
 
 TARGET_USERIMAGES_USE_EXT4:=true
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
+
+# Enable dex-preoptimization
+WITH_DEXPREOPT := false
+DONT_DEXPREOPT_PREBUILTS := true
 
 # Partitions & Image
 BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216
@@ -66,17 +48,14 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 TARGET_GLOBAL_CFLAGS   += -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
 
-COMMON_GLOBAL_CFLAGS += -DDISABLE_HW_ID_MATCH_CHECK
-TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
-
 # Kernel 
 BOARD_KERNEL_CMDLINE := androidboot.selinux=permissive
 BOARD_KERNEL_BASE := 0x10000000
 BOARD_KERNEL_PAGESIZE := 2048
 #TARGET_KERNEL_CONFIG := 2014011_debug_defconfig
-#TARGET_KERNEL_SOURCE := Xiaomi/hm_note_1w\
-TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/kernel
-BOARD_CUSTOM_BOOTIMG_MK := $(LOCAL_PATH)/bootimg.mk
+#TARGET_KERNEL_SOURCE := Huawei/h30_t10\
+TARGET_PREBUILT_KERNEL := device/Huawei/h30_t10/kernel
+BOARD_CUSTOM_BOOTIMG_MK := device/Huawei/h30_t10/bootimg.mk
 BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 --second_offset 0x00f00000 --tags_offset 0x00000100
 BOARD_CUSTOM_BOOTIMG := true
 TARGET_KMODULES := true
@@ -84,11 +63,14 @@ TARGET_KMODULES := true
 # Assert
 TARGET_OTA_ASSERT_DEVICE := h30_t10,aurora
 
+BOARD_GLOBAL_CFLAGS += -DDISABLE_HW_ID_MATCH_CHECK
+TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
+
 # Disable memcpy opt (for audio libraries)
 TARGET_CPU_MEMCPY_OPT_DISABLE := true
 
 # EGL settings
-BOARD_EGL_CFG := $(LOCAL_PATH)/configs/egl.cfg
+BOARD_EGL_CFG := device/Huawei/h30_t10/configs/egl.cfg
 USE_OPENGL_RENDERER := true
 BOARD_EGL_WORKAROUND_BUG_10194508 := true
 BOARD_EGL_NEEDS_HANDLE_VALUE := true
@@ -99,9 +81,10 @@ TARGET_REQUIRES_SYNCHRONOUS_SETSURFACE := true
 BOARD_HAS_MTK_HARDWARE := true
 MTK_HARDWARE := true
 BOARD_USES_LEGACY_MTK_AV_BLOB := true
-COMMON_GLOBAL_CFLAGS += -DMTK_HARDWARE -DADD_LEGACY_ACQUIRE_BUFFER_SYMBOL
-COMMON_GLOBAL_CPPFLAGS += -DMTK_HARDWARE
+BOARD_GLOBAL_CFLAGS += -DMTK_HARDWARE -DADD_LEGACY_ACQUIRE_BUFFER_SYMBOL
+BOARD_GLOBAL_CPPFLAGS += -DMTK_HARDWARE
 BLOCK_BASED_OTA := false
+
 # Offline charging
 BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/BOOT/BOOT/boot/boot_mode
 BOARD_CHARGER_ENABLE_SUSPEND := true
@@ -128,42 +111,37 @@ WIFI_DRIVER_FW_PATH_P2P:=P2P
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_MTK := true
 BOARD_BLUETOOTH_DOES_NOT_USE_RFKILL := true
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(LOCAL_PATH)/bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/Huawei/h30_t10/bluetooth
 
 # Sensors
 TARGET_NO_SENSOR_PERMISSION_CHECK := true
 
-# Recovery
-TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/recovery.fstab
+# CWM
+TARGET_RECOVERY_FSTAB := device/Huawei/h30_t10/rootdir/recovery.fstab
+BOARD_HAS_NO_SELECT_BUTTON := true
 
 # TWRP
 #RECOVERY_VARIANT=twrp
+TW_DEFAULT_LANGUAGE := en
 TW_THEME := portrait_hdpi
 DEVICE_RESOLUTION := 720x1280
-BOARD_HAS_NO_SELECT_BUTTON := true
-# TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/twrp.fstab
-TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/recovery.fstab
-TARGET_PREBUILT_RECOVERY_KERNEL := $(LOCAL_PATH)/kernel
-TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/mt_usb/musb-hdrc.0/gadget/lun%d/file
 RECOVERY_GRAPHICS_USE_LINELENGTH := true
-
-TW_DEFAULT_LANGUAGE := en
-TW_DEFAULT_EXTERNAL_STORAGE := true
 TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
 TW_MAX_BRIGHTNESS := 255
 TW_CUSTOM_CPU_TEMP_PATH := /sys/devices/virtual/thermal/thermal_zone1/temp
+TW_DEFAULT_EXTERNAL_STORAGE := true
 TW_INTERNAL_STORAGE_PATH := "/sdcard"
 TW_INTERNAL_STORAGE_MOUNT_POINT := "sdcard"
 TW_EXTERNAL_STORAGE_PATH := "/external_sd"
 TW_EXTERNAL_STORAGE_MOUNT_POINT := "external_sd"
+
+TARGET_PREBUILT_RECOVERY_KERNEL := $(LOCAL_PATH)/kernel
+TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/virtual/android_usb/android0/f_mass_storage/lun%d/file"
+
 TW_INCLUDE_FB2PNG := true
 TW_EXTRA_LANGUAGES := true
 TW_BUILD_ZH_CN_SUPPORT := true
 TW_DEFAULT_LANGUAGE := zh_CN
-TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/virtual/android_usb/android0/f_mass_storage/lun%d/file"
-
-# Enable Minikin text layout engine (will be the default soon)
-USE_MINIKIN := true
 
 # Selinux
 BOARD_SEPOLICY_DIRS := \
@@ -172,14 +150,13 @@ BOARD_SEPOLICY_DIRS := \
 # Sepolicy hack for old kernel, mt6582 version is 26.
 POLICYVERS := 26
 
+# Enable Minikin text layout engine (will be the default soon)
+USE_MINIKIN := true
+
 # Hack for build
 $(shell mkdir -p $(OUT)/obj/KERNEL_OBJ/usr)
 
-# FMRadio
-MTK_FM_SUPPORT := yes
-MTK_FM_RX_SUPPORT := yes
-MTK_FM_CHIP := MT6627_FM
-FM_LIB_BUILD_MT6620 := yes
-FM_LIB_BUILD_MT6627 := yes
-FM_LIB_BUILD_MT6628 := yes
-FM_LIB_BUILD_MT6630 := yes
+# Remove Stock FMRadio by Default.
+$(shell rm -rf $(LOCAL_PATH)/packages/apps/FMRadio)
+
+
