@@ -1,4 +1,4 @@
- Teno J7 Specifications
+ H30-T10 Specifications
  
  ==============
 
@@ -27,4 +27,6 @@ B.Camera |8MPx, LED Flash
         
         # DerTeufel
         
-        # all those who initially brought up Android M to MTK
+	# manjotsidhu
+	
+        # all those who initially brought up Android N to MTK

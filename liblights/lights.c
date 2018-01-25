@@ -102,16 +102,16 @@ char const*const RED_DELAY_OFF_FILE
 
 /* GREEN LED */
 char const*const GREEN_LED_FILE
-        = "/sys/class/leds/greenled/brightness";
+        = "/sys/class/leds/green/brightness";
 
 char const*const GREEN_TRIGGER_FILE
-        = "/sys/class/leds/greenled/trigger";
+        = "/sys/class/leds/green/trigger";
 
 char const*const GREEN_DELAY_ON_FILE
-        = "/sys/class/leds/greenled/delay_on";
+        = "/sys/class/leds/green/delay_on";
 
 char const*const GREEN_DELAY_OFF_FILE
-        = "/sys/class/leds/greenled/delay_off";
+        = "/sys/class/leds/green/delay_off";
 
 /* BLUE LED */
 char const*const BLUE_LED_FILE

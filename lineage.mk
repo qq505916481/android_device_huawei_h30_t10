@@ -1,20 +1,35 @@
-## Specify phone tech before including full_phone
+#
+# Copyright (C) 2017 The LineageOS Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+# Specify phone tech before including full_phone
 
 # Release name
 PRODUCT_RELEASE_NAME := h30_t10
 
-# Inherit some common Lineage stuff.
+# Inherit some common LineageOS stuff.
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
 # Inherit from hardware-specific part of the product configuration
-$(call inherit-product, device/Huawei/h30_t10/device.mk)
-$(call inherit-product-if-exists, vendor/Huawei/h30_t10/h30_t10-vendor.mk)
+$(call inherit-product, device/Huawei/h30_t10/lineage_h30_t10.mk)
 
-## Device identifier. This must come after all inclusions
+# Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := h30_t10
 PRODUCT_NAME := lineage_h30_t10
 PRODUCT_BRAND := Huawei
-PRODUCT_MODEL := MT6582
+PRODUCT_MODEL := Huawei H30-T10
 PRODUCT_MANUFACTURER := Huawei
 
-PRODUCT_GMS_CLIENTID_BASE := android-Huawei
+PRODUCT_GMS_CLIENTID_BASE := android-huawei
